@@ -1,4 +1,4 @@
-adwanced_data_analysis_lab1
+advanced_data_analysis_lab1
 ==============================
 
 lab1
