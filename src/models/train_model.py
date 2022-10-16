@@ -24,8 +24,8 @@ from catboost import *
 @click.command()
 @click.argument('input_data_filepath', type=click.Path(exists=True))
 @click.argument('input_target_filepath', type=click.Path(exists=True))
-@click.argument('output_model_filepath', type=click.Path())
-def main(input_data_filepath="data/processed/train_data.pkl", input_target_filepath="data/processed/train_target.pkl", output_model_filepath="models/model.sav"):
+@click.argument('output', type=click.Path())
+def main(input_data_filepath="data/processed/train_data.pkl", input_target_filepath="data/processed/train_target.pkl", output="models/"):
 
     train_data = pd.read_pickle(input_data_filepath)
     train_target = pd.read_pickle(input_target_filepath)
@@ -54,15 +54,15 @@ def main(input_data_filepath="data/processed/train_data.pkl", input_target_filep
 
     Transformer = preprocess_pipe.fit(train_data)
 
-    X_train, X_test, Y_train, Y_test = train_test_split(
+    divided_train_data, divided_test_data, divided_train_target, divided_test_target = train_test_split(
         Transformer.transform(train_data),
         train_target,
         train_size=0.8,
         random_state=7,
     )
 
-    train_pool = Pool(X_train, Y_train)
-    test_pool  = Pool(X_test, Y_test)
+    train_pool = Pool(divided_train_data, divided_train_target)
+    test_pool  = Pool(divided_test_data, divided_test_target)
 
     model = CatBoostClassifier(
         iterations=500, 
@@ -82,7 +82,12 @@ def main(input_data_filepath="data/processed/train_data.pkl", input_target_filep
             verbose=True, 
     )
 
-    save_as_pickle(model, output_model_filepath)
+    save_as_pickle(model, output + "model.pkl")
+    save_as_pickle(divided_train_data, output + "divided_train_data.pkl")
+    save_as_pickle(divided_test_data, output + "divided_test_data.pkl")
+    save_as_pickle(divided_train_target, output + "divided_train_target.pkl")
+    save_as_pickle(divided_test_target, output + "divided_test_target.pkl")
+    save_as_pickle(Transformer, output + "transformer.pkl")
 
 
 if __name__ == '__main__':
