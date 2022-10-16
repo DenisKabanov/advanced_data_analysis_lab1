@@ -29,6 +29,8 @@ def main(input_model_dir="models/", input_test_filepath="data/processed/test_dat
     with open("results/predict.txt", "w") as file:
         for row in result:
             file.write(f"{row}\n")
+    
+    save_as_pickle(result, "data/predicted/predict.pkl")
 
 
 if __name__ == '__main__':

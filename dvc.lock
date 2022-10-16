@@ -34,20 +34,20 @@ stages:
       nfiles: 4
     outs:
     - path: models/
-      md5: 4fd5ac8a31bdd004909c72d83992331a.dir
+      md5: cabcdbec1a443bb9dd1e59fec7105047.dir
       size: 1206694
       nfiles: 6
   evaluate:
     cmd: python src/models/evaluate.py models/
     deps:
     - path: models/
-      md5: 4fd5ac8a31bdd004909c72d83992331a.dir
+      md5: cabcdbec1a443bb9dd1e59fec7105047.dir
       size: 1206694
       nfiles: 6
   predict:
     cmd: python src/models/predict_model.py models/ data/processed/test_data.pkl
     deps:
     - path: models/
-      md5: 4fd5ac8a31bdd004909c72d83992331a.dir
+      md5: cabcdbec1a443bb9dd1e59fec7105047.dir
       size: 1206694
       nfiles: 6
