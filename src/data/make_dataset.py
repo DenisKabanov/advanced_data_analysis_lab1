@@ -13,8 +13,9 @@ import src.config as cfg
 
 @click.command()
 @click.argument('input_dir', type=click.Path(exists=True))
-@click.argument('output_dir', type=click.Path())
-def main(input_dir = "data/raw/", output_dir="data/interim/"):
+@click.argument('output_data_dir', type=click.Path())
+@click.argument('output_target_dir', type=click.Path())
+def main(input_dir = "data/raw/", output_data_dir="data/interim/", output_target_dir="data/processed/"):
     """ Runs data processing scripts to turn raw data from (../raw) into
         cleaned data ready to be analyzed (saved in ../processed).
     """
@@ -30,26 +31,8 @@ def main(input_dir = "data/raw/", output_dir="data/interim/"):
             df = preprocess_data(df)
             if cfg.TARGET_COLS[0] in df.columns: # проверка, что хотя бы один таргет есть в столбцах рассматриваемого датасета
                 df, target = extract_target(df)
-                save_as_pickle(target, output_dir + filename[0:-4] + "_target.pkl")
-            save_as_pickle(df, output_dir + filename[0:-4] + "_data.pkl")
-
-# real_pipe = Pipeline([
-#     ('imputer', SimpleImputer()),
-#     ('scaler', StandardScaler())
-# ])
-
-# cat_pipe = Pipeline([
-#     ('imputer', SimpleImputer(strategy='constant', fill_value='NA')),
-#     ('OHE', OneHotEncoder(handle_unknown='ignore', sparse=False)) # one hot encoding (ignore - все значения в столбце - нули)
-# ])
-
-# preprocess_pipe = ColumnTransformer(transformers=[ # все столбцы, что не указаны дропнутся
-#     ('real_cols', real_pipe, REAL_COLS),
-#     ('cat_cols', cat_pipe, CAT_COLS),
-#     ('woe_cat_cols', ce.WOEEncoder(), CAT_COLS), # для получения баллов за задачу "В пайплайнах используется работа с категориальными признаками (2 балла):"
-#     ('ohe_cols', 'passthrough', ONE_COLS) # ohe столбцы передадутся как есть
-# ])
-
+                save_as_pickle(target, output_target_dir + filename[0:-4] + "_target.pkl")
+            save_as_pickle(df, output_data_dir + filename[0:-4] + "_data.pkl")
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
