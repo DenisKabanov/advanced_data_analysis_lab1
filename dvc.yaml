@@ -1,0 +1,8 @@
+stages:
+  preprocess_data:
+    cmd: python src/data/make_dataset.py data/raw/ data/interim/
+    deps:
+    - data/raw/
+    outs:
+    - data/interim/:
+        persist: true

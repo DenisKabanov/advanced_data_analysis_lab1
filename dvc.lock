@@ -1,0 +1,14 @@
+schema: '2.0'
+stages:
+  preprocess_data:
+    cmd: python src/data/make_dataset.py data/raw/ data/interim/
+    deps:
+    - path: data/raw/
+      md5: adfc68e8a91d8149ee819313f179b5c8.dir
+      size: 650036
+      nfiles: 6
+    outs:
+    - path: data/interim/
+      md5: 09e102d27c1f05e3b0d13117487be8e7.dir
+      size: 125313
+      nfiles: 4
