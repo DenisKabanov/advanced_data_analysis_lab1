@@ -21,18 +21,19 @@ stages:
       nfiles: 4
     outs:
     - path: data/processed/
-      md5: 4e461ae9ba49fc40b38bdb5ae324c7df.dir
-      size: 133721
-      nfiles: 4
+      md5: 478c0a4559e016618fc4aec305ca5e58.dir
+      size: 555611
+      nfiles: 5
   train:
     cmd: python src/models/train_model.py data/processed/train_data.pkl data/processed/train_target.pkl
-      models/model.sav
+      models/
     deps:
     - path: data/processed/
-      md5: 4e461ae9ba49fc40b38bdb5ae324c7df.dir
-      size: 133721
-      nfiles: 4
+      md5: 478c0a4559e016618fc4aec305ca5e58.dir
+      size: 555611
+      nfiles: 5
     outs:
-    - path: models/model.sav
-      md5: 8965809b29ee11bc6a11762c42712d4f
-      size: 649564
+    - path: models/
+      md5: 399c137024b7c965dc714d9c31797c54.dir
+      size: 1198860
+      nfiles: 5
