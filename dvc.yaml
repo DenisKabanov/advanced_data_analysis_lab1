@@ -1,6 +1,6 @@
 stages:
   preprocess_data:
-    cmd: python src/data/make_dataset.py data/raw/ data/interim/
+    cmd: python src/data/make_dataset.py data/raw/ data/interim/ data/processed/
     deps:
     - data/raw/
     outs:
@@ -13,3 +13,11 @@ stages:
     outs:
     - data/processed/:
         persist: true
+
+  train:
+    cmd: python src/models/train_model.py data/processed/train_data.pkl data/processed/train_target.pkl
+      models/model.sav
+    deps:
+    - data/processed/
+    outs:
+    - models/model.sav
