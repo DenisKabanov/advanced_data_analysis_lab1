@@ -1,4 +1,4 @@
-adwanced_data_analysis_lab1
+advanced_data_analysis_lab1
 ==============================
 
 В качестве основной метрики был выбран F_1 score по нескольким причинам:
