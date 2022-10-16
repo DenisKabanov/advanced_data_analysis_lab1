@@ -6,3 +6,10 @@ stages:
     outs:
     - data/interim/:
         persist: true
+  add_features:
+    cmd: python src/features/build_features.py data/interim/ data/processed/
+    deps:
+    - data/interim/
+    outs:
+    - data/processed/:
+        persist: true

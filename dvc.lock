@@ -12,3 +12,15 @@ stages:
       md5: 09e102d27c1f05e3b0d13117487be8e7.dir
       size: 125313
       nfiles: 4
+  add_features:
+    cmd: python src/features/build_features.py data/interim/ data/processed/
+    deps:
+    - path: data/interim/
+      md5: 09e102d27c1f05e3b0d13117487be8e7.dir
+      size: 125313
+      nfiles: 4
+    outs:
+    - path: data/processed/
+      md5: 1ca3f5ee3f56bc7c267d60c8424fc396.dir
+      size: 112786
+      nfiles: 3
